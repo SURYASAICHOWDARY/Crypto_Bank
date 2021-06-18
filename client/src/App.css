@@ -177,7 +177,7 @@ ul {
 
 .landing-btn {
   padding: 10px 25px;
-  margin: 5px 10px;
+  margin: 5px 15px;
   font-size: 24px;
   text-align: center;
   cursor: pointer;
@@ -198,19 +198,6 @@ ul {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-/* .navigators {
-  display: inline-flex;
-  align-items: right;
-  padding: 10px 25px;
-  margin: 5px 10px;
-  font-size: 1rem;
-  text-align: center;
-  cursor: pointer;
-  color: #fff;
-  background-color: #fff;
-  border: 2px solid black;
-  border-radius: 15px;
-} */
 
 .form {
   font-size: 1.5rem;
