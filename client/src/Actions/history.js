@@ -3,7 +3,7 @@ import {Get_Transactions, No_Transactions} from './types';
 
 export const getHistory = () => async (dispatch) => {
     try {
-      const res = await axios.get('http://localhost:5000/transactions/history');
+      const res = await axios.get('https://intense-sierra-39891.herokuapp.com/transactions/history');
       dispatch({
         type: Get_Transactions,
         payload: res.data

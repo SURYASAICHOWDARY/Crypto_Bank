@@ -10,7 +10,7 @@ export const postTransaction = (formData) => async (dispatch) => {
     }
 
     try {
-        const res = await axios.post('http://localhost:5000/transactions', formData, config);
+        const res = await axios.post('https://intense-sierra-39891.herokuapp.com/transactions', formData, config);
 
         window.alert(res.data);
         dispatch({
