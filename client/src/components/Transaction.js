@@ -1,85 +1,95 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-//import { setAlert } from '../../actions/alert';
 import { postTransaction } from '../Actions/transaction';
+import { getCustomers } from "../Actions/customers.js"
+import { getCustomer } from "../Actions/customers.js";
 import PropTypes from 'prop-types';
+import { Form, Col, Row, Button} from 'react-bootstrap';
 
-const Transaction = ({ postTransaction}) => {
+const Transaction = ({ postTransaction, getCustomer,getCustomers,message,customer:{customer,customers},match}) => {
   const [formData, setFormData] = useState({
     sender:'',
     receiver:'',
-    amount:null
+    amount:''
   });
 
-  const { sender, receiver, amount} = formData;
+  useEffect(()=>{
+    getCustomer(match.params.id);
+    getCustomers()
+  }, [getCustomer,getCustomers, match.params.id]);
+
+  const {amount} = formData;
+
+  var Sender = customer.name;
 
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, sender:Sender, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
     postTransaction(formData);
-    console.log(formData)
   };
 
   return (
     <Fragment>
-      <h1 className="large text-primary"> Transaction </h1>
-      <p className="lead">
-         Create Your Account
-      </p>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
+      <div className="container">
+      <h1 className="text-primary lead"> Transaction </h1>
+      <Form className="form" onSubmit={onSubmit}>
+        <Form.Group as={Row}>
+        <Form.Label column sm={2}>Transfer From</Form.Label>
+        <Col sm='10'>
+        <Form.Control
             type="text"
-            placeholder="From"
-            name="sender"
-            value={sender}
-            onChange={onChange}
+            placeholder= {Sender}
+            readOnly
+          defaultValue={Sender}
           />
-        </div>
-        <div className="form-group">
-        <input
+        </Col> 
+        </Form.Group>
+          <Form.Group as={Row} >
+            <Form.Label column sm={2}>Transfer To</Form.Label>
+            <Col sm='10'>
+            <Form.Control as="select"placeholder="receiver" required name="receiver" onChange={onChange}  >
+              <option>Please Select the person </option>
+              {customers.length>0 ?(
+                customers.filter(c=> c.name !== Sender).map(c =>(
+            <option value={c.name} key={customer._id}>{c.name}</option>
+          ))
+        ) : (
+          <option value='not found'>Not Found</option>
+        )}
+            </Form.Control>
+            </Col>
+          </Form.Group>
+        <Form.Group as={Row}>
+        <Form.Label column sm={2}>Amount</Form.Label>
+        <Col sm='10'>
+          <Form.Control
             type="text"
-            placeholder="receiver"
-            name="receiver"
-            value={receiver}
-            onChange={onChange}
-          />
-      {/* <div class="form-floating">
-      <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-      <option selected>Open this select menu</option>
-      <option name="M.Nageswara Rao" value={receiver}  onChange={onChange}>M.Nageswara Rao</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <label for="floatingSelect">Works with selects</label>
-</div> */}
-          
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Amount"
+            required
             name="amount"
             value={amount}
             onChange={onChange}
           />
+          </Col>
+        </Form.Group>
+        <Button type="submit"> Transfer</Button>
+        </Form>
         </div>
-        <input type="submit" className="btn btn-primary" value="Transfer" />
-      </form>
-      <p className="my-1">
-         <Link to="/viewCustomers">Back to customers</Link>
-      </p>
     </Fragment>
   );
 };
 
 Transaction.propTypes = {
-  // setAlert: PropTypes.func.isRequired,
   postTransaction: PropTypes.func.isRequired,
-  
+  getCustomer: PropTypes.func.isRequired,
+  getCustomers: PropTypes.func.isRequired,
+  customer:  PropTypes.object.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
-export default connect(null,{ postTransaction })(Transaction);
+const mapStateToProps = state =>({
+  customer: state.customer,
+  message: state.message
+});
+export default connect(mapStateToProps,{ postTransaction,getCustomer, getCustomers })(Transaction);

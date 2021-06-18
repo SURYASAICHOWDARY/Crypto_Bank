@@ -19,13 +19,15 @@ const ViewCustomers = ({ getCustomers, customer:{ customers, loading}}) => {
       <Spinner />
     ):(
       <Fragment> 
-      <div className=" container">
+      <div className="container">
+      <h1 className='lead'>Customer Details</h1>
     <Table hover>
-      <thead>
+      <thead className='table_header'>
         <tr>
           <th>Name of Customer</th>
           <th>Email</th>
           <th>Balance</th>
+          <th>Profile</th>
         </tr>
       </thead>
       

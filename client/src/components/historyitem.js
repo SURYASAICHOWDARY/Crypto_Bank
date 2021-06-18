@@ -9,7 +9,7 @@ const HistoryItem = ({
     }
 }) => {
     return (
-        <tbody>
+        <tbody className='table_body'>
         <tr>
         <td>{sender}</td>
         <td>{receiver} </td>

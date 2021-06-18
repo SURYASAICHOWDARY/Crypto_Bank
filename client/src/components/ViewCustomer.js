@@ -1,12 +1,9 @@
 import React,{Fragment,useEffect} from "react";
-import {Card} from "reactstrap";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from './spinner';
 import { getCustomer } from "../Actions/customers.js";
-import {Link} from 'react-router-dom'
-// import {info,light} from 'bootstrap/dist/css/bootstrap.min.css';
-
+import Profile from './Profileitem';
 
 const ViewCustomer = ({ getCustomer, customer:{ customer, loading}, match}) => {
 
@@ -19,24 +16,17 @@ const ViewCustomer = ({ getCustomer, customer:{ customer, loading}, match}) => {
       {loading? (
         <Spinner />
       ):(
-
-        <Fragment> 
-        
-        
-            
+        <Fragment>
+          <div className="container">
+          <h1 className='lead' style={{textAlign: 'center'}}> Customer Profile</h1>
             {customer==null ?(
                 <h4> Cannot Get Profile </h4>
             ):(
-              <div className=" container">
-              <h1>{customer.name}</h1>
-              <h2> {customer.email} </h2>
-              <h3> {customer.Balance}</h3>
-              <Link to ={`/viewCustomers/${customer._id}/transaction`} className="button"> Transfer Funds</Link>
-              </div>
+             <Profile customer={customer} />
             )}
+            </div>
         </Fragment>
       )}
-      {console.log(customer)}
       </Fragment>
     );
   };
@@ -51,5 +41,3 @@ const ViewCustomer = ({ getCustomer, customer:{ customer, loading}, match}) => {
   });
   
   export default connect (mapStateToProps, { getCustomer})(ViewCustomer);
-
-          /* bg={info} text={light} style={{ width: '18rem' }} */

@@ -14,12 +14,14 @@ router.post('/', async (req, res)=>{
         const Sender = await Customer.findOne({name: sender});
         const Receiver = await Customer.findOne({name: receiver});
         
-        var receiverBalance = Receiver.Balance;
-        var senderBalance = Sender.Balance;
+        var receiverBalance = parseFloat (Receiver.Balance);
+        var senderBalance =parseFloat (Sender.Balance);
        
-        if(senderBalance >= amount){
-            senderBalance -= amount;
-            receiverBalance += amount;
+        if(amount ==0){
+            res.send("Transfer Amount should be greater than 0");
+        }else if(senderBalance >= amount && amount !=0){
+            senderBalance =parseFloat (senderBalance) - parseFloat (amount);
+            receiverBalance =parseFloat (receiverBalance) + parseFloat (amount);
            const newTransaction = new Transaction({
                sender, receiver, amount
            });
@@ -28,9 +30,9 @@ router.post('/', async (req, res)=>{
            Sender.Balance = senderBalance;
            await Sender.save();
            await Receiver.save();
-            res.send(transaction);
-        }else {
-            res.send("insufficent funds");
+            res.send(" Successfully Transfered!");
+        }else{
+            res.send('Insufficient Funds')
         }
         
 

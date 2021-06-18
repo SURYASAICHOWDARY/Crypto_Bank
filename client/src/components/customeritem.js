@@ -12,13 +12,13 @@ const CustomerItem = ({
     }
 }) => {
     return (
-        <tbody>
+        <tbody className='table_body'>
             <tr>
             <td>{name}</td>
             <td>{email} </td>
             <td>{Balance} </td>
-            <Link to={`/viewcustomers/${_id}`}>
-            <Button variant="outline-info">Info</Button>
+            <Link to={`/viewcustomers/${_id}`} style={{textDecoration: 'none'}}>
+            <Button variant="outline-info">View</Button>
             </Link>
             </tr>
         </tbody>

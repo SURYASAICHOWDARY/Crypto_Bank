@@ -20,8 +20,9 @@ const History = ({ getHistory, history:{ historyList, loading}}) => {
     ):(
       <Fragment> 
       <div className="container">
+      <h1 className='lead'>Transaction History</h1>
     <Table hover>
-      <thead>
+      <thead className='table_header'>
         <tr>
           <th>Transfered From</th>
           <th>Transferred to</th>
@@ -35,8 +36,6 @@ const History = ({ getHistory, history:{ historyList, loading}}) => {
         ) : (
           <h4> No Transactions  found </h4>
         )}
-
-        {console.log(historyList)}
     </Table>
     </div>                                                                                    
       </Fragment>

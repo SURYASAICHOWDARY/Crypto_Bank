@@ -1,12 +1,13 @@
 import React,{Fragment} from "react";
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
+import NavBar from './components/Navbar';
 import Landing from './components/Landing';
 import ViewCustomers from './components/ViewCustomers';
 import History from './components/history';
 import ViewCustomer from './components/ViewCustomer';
 import Transaction from './components/Transaction';
+import Footer from './components/footer';
 
 import {Provider} from "react-redux";
 import store from "./store";
@@ -18,9 +19,9 @@ const App =() =>(
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Navbar />
+          <NavBar />
           <Route exact path="/" component={Landing} />
-            <section className='container'>
+            <section>
               <Switch>
                 <Route exact path="/viewCustomers" component={ViewCustomers} />
                 <Route exact path="/history" component={History} />
@@ -28,6 +29,7 @@ const App =() =>(
                 <Route exact path="/viewcustomers/:id/transaction" component={Transaction} />
               </Switch>
             </section>
+          <Footer />
         </Fragment>
       </Router>
       </Provider>

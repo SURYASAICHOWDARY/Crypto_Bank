@@ -5,11 +5,11 @@ const Navbar = () => {
     return (
         <nav className="navbar overlay">
         <h1>
-          <Link to="/"><i className="fas fa-code"></i> Crypto Bank </Link>
+          <Link to="/" style={{textDecoration: 'none'}}><i class="fab fa-bitcoin"></i> Crypto Bank </Link>
         </h1>
         <ul>
-          <li><Link to="/viewCustomers"> View Customers</Link></li>
-          <li><Link to="/history"> History  </Link></li>
+          <li><Link to="/viewCustomers" style={{textDecoration: 'none'}}> View Customers</Link></li>
+          <li><Link to="/history" style={{textDecoration: 'none'}}> History  </Link></li>
         </ul>
       </nav>
     )
