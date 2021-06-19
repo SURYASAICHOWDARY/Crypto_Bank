@@ -17,9 +17,9 @@ router.post('/', async (req, res)=>{
         var receiverBalance = parseFloat (Receiver.Balance);
         var senderBalance =parseFloat (Sender.Balance);
        
-        if(amount ==0){
+        if(amount === 0 || amount<0){
             res.send("Transfer Amount should be greater than 0");
-        }else if(senderBalance >= amount && amount !=0){
+        }else if(senderBalance >= amount){
             senderBalance =parseFloat (senderBalance) - parseFloat (amount);
             receiverBalance =parseFloat (receiverBalance) + parseFloat (amount);
            const newTransaction = new Transaction({
